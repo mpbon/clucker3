@@ -1,0 +1,16 @@
+@import "~bootstrap/scss/bootstrap";
+
+.song-liked {
+    background: lime;
+    &:hover {
+        background: gold;
+    }
+}
+
+.badge {
+    cursor: crosshair;
+}
+
+.tweettemp {
+    background: gold;
+}
