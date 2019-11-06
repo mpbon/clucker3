@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cluck;
 
-class PlaylistController extends Controller
+class CluckController extends Controller
 {
     public function index(){
         $clucks = Cluck::all();
@@ -14,7 +14,7 @@ class PlaylistController extends Controller
 
     public function addCluck(Request $request){
         $cluck = new Cluck;
-        $cluck->title = $request->title;
+        $cluck->comment = $request->comment;
         $cluck->save();
     }
 

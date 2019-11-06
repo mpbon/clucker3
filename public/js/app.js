@@ -49147,7 +49147,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 Vue.component('addcluck', {
-  template: "\n    <div class=\"card mt-4\">\n        <div class=\"card-body\">\n\n            <form>\n                <h3>Cluck</h3>\n                  <div class=\"form-group\">\n                    <label for=\"comment\">Title</label>\n                    <input type=\"text\" class=\"form-control\" name=\"comment\" placeholder=\"Comment here\" v-model=\"newComment.comment\">\n                </div>\n\n                 <button type=\"button\" class=\"btn btn-primary\" @click=\"$emit('cluckAdded', newCluck)\">Cluck it</button>\n            </form>\n\n    </div>\n\n</div>\n    ",
+  template: "\n    <div class=\"card mt-4\">\n        <div class=\"card-body\">\n\n            <form>\n                <h3>Cluck</h3>\n                  <div class=\"form-group\">\n                    <label for=\"comment\">Comment</label>\n                    <input type=\"text\" class=\"form-control\" name=\"comment\" placeholder=\"Comment here\" v-model=\"newComment.comment\">\n                </div>\n\n                 <button type=\"button\" class=\"btn btn-primary\" @click=\"$emit('cluckAdded', newComment)\">Cluck it</button>\n            </form>\n\n    </div>\n\n</div>\n    ",
   data: function data() {
     return {
       newComment: {
@@ -49163,18 +49163,18 @@ Vue.component('cluck', {
       if (cluck.liked) return 'Unlike';else return 'Like';
     }
   },
-  template: "\n        <div class=\"list-group-item list-group-item-action\" v-bind:class=\"{'cluck-liked' : cluck.liked}\">\n          <div class=\"d-flex w-100 justify-content-between\">\n            <h5 class=\"mb-1\">{{ cluck.title }}</h5>\n            <div>\n            <span class=\"badge badge-primary badge-pill\" @click=\"$emit('cluckLiked', cluck)\" v-text=\"likeText(cluck)\">Like</span>\n            </div>\n            <div>\n            <span class=\"badge badge-danger badge-pill\" @click=\"$emit('cluckRemoved', cluck)\">X</span>\n            </div>\n          </div>\n          <p class=\"mb-1\">{{ cluck.artist }}</p>\n          <small><a :href=\"cluck.link_url\">Link to cluck</a></small>\n       </div>\n    "
+  template: "\n        <div class=\"list-group-item list-group-item-action\" v-bind:class=\"{'cluck-liked' : cluck.liked}\">\n          <div class=\"d-flex w-100 justify-content-between\">\n            <h5 class=\"mb-1\">{{ cluck.comment }}</h5>\n            <div>\n            <span class=\"badge badge-primary badge-pill\" @click=\"$emit('cluckLiked', cluck)\" v-text=\"likeText(cluck)\">Like</span>\n            </div>\n            <div>\n            <span class=\"badge badge-danger badge-pill\" @click=\"$emit('cluckRemoved', cluck)\">X</span>\n            </div>\n          </div>\n          <p class=\"mb-1\">{{ cluck.artist }}</p>\n          <small><a :href=\"cluck.link_url\">Link to cluck</a></small>\n       </div>\n    "
 });
 Vue.component('playlist', {
-  template: "\n        <div>\n            <addcluck @cluckAdded=\"addcluck\"></addcluck>\n\n            <div>\n                <cluck v-for=\"(cluck, index) in cluck\"\n                @cluckRemoved=\"removeCluck\"\n                @cluckLiked=\"likeCluck\"\n                :cluck=\"cluck\"\n                :key=\"index\"\n                ></cluck>\n            </div>\n        </div>\n    ",
+  template: "\n        <div>\n            <addcluck @cluckAdded=\"addCluck\"></addcluck>\n\n            <div>\n                <cluck v-for=\"(cluck, index) in clucks\"\n                @cluckRemoved=\"removeCluck\"\n                @cluckLiked=\"likeCluck\"\n                :cluck=\"cluck\"\n                :key=\"index\"\n                ></cluck>\n            </div>\n        </div>\n    ",
   data: function data() {
     return {
-      songs: [{
-        title: "hey",
+      clucks: [{
+        comment: "hey",
         artist: "there",
         link_url: "buddy"
       }, {
-        title: "hey",
+        comment: "hey",
         artist: "there",
         link_url: "buddy"
       }]
@@ -49216,11 +49216,11 @@ Vue.component('playlist', {
         url: '/add',
         data: cluck
       });
-      this.fetchCluck();
+      this.fetchClucks();
     }
   },
   created: function created() {
-    this.fetchCluck();
+    this.fetchClucks();
   }
 });
 new Vue({

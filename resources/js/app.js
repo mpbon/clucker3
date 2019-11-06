@@ -8,11 +8,11 @@ Vue.component('addcluck',{
             <form>
                 <h3>Cluck</h3>
                   <div class="form-group">
-                    <label for="comment">Title</label>
+                    <label for="comment">Comment</label>
                     <input type="text" class="form-control" name="comment" placeholder="Comment here" v-model="newComment.comment">
                 </div>
 
-                 <button type="button" class="btn btn-primary" @click="$emit('cluckAdded', newCluck)">Cluck it</button>
+                 <button type="button" class="btn btn-primary" @click="$emit('cluckAdded', newComment)">Cluck it</button>
             </form>
 
     </div>
@@ -43,7 +43,7 @@ Vue.component('cluck',{
     template: `
         <div class="list-group-item list-group-item-action" v-bind:class="{'cluck-liked' : cluck.liked}">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ cluck.title }}</h5>
+            <h5 class="mb-1">{{ cluck.comment }}</h5>
             <div>
             <span class="badge badge-primary badge-pill" @click="$emit('cluckLiked', cluck)" v-text="likeText(cluck)">Like</span>
             </div>
@@ -60,10 +60,10 @@ Vue.component('cluck',{
 Vue.component('playlist',{
     template: `
         <div>
-            <addcluck @cluckAdded="addcluck"></addcluck>
+            <addcluck @cluckAdded="addCluck"></addcluck>
 
             <div>
-                <cluck v-for="(cluck, index) in cluck"
+                <cluck v-for="(cluck, index) in clucks"
                 @cluckRemoved="removeCluck"
                 @cluckLiked="likeCluck"
                 :cluck="cluck"
@@ -74,14 +74,14 @@ Vue.component('playlist',{
     `,
     data(){
         return{
-            songs: [
+            clucks: [
                 {
-                    title: "hey",
+                    comment: "hey",
                     artist: "there",
                     link_url: "buddy"
                 },
                 {
-                    title: "hey",
+                    comment: "hey",
                     artist: "there",
                     link_url: "buddy"
                 }
@@ -124,11 +124,11 @@ Vue.component('playlist',{
                 url: '/add',
                 data: cluck,
             });
-            this.fetchCluck();
+            this.fetchClucks();
         }
     },
     created() {
-        this.fetchCluck();
+        this.fetchClucks();
 
     }
 });

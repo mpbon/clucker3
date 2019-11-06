@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('app');
 });
 
-Route::post('/add', 'PlaylistController@addCluck');
+Route::post('/add', 'CluckController@addCluck');
 
-Route::get('/clucks', 'PlaylistController@index');
+Route::get('/clucks', 'CluckController@index');
 
-Route::post('/delete', 'PlaylistController@removeCluck');
+Route::post('/delete', 'CluckController@removeCluck');
 
-Route::post('/like', 'PlaylistController@likeCluck');
+Route::post('/like', 'CluckController@likeCluck');
