@@ -15,7 +15,7 @@
         <a class="nav-link active" href="#!"><img class="small-icon" src="{{url('/images/coop.png')}}" alt="Chicken coop"/>&nbsp &nbsp Home</a>
         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><img class="small-icon" src="{{url('/images/roast.png')}}" alt="Chicken coop"/>&nbsp &nbsp {{ __('Logout') }}</a>
 
-
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
 
         <div id="app">
             <div class="col-md-8 row justify-content-center">
