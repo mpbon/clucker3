@@ -30,3 +30,11 @@ Route::get('/welcome', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/logout', function(){
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
+
+Route::get('/home', function(){
+    return redirect('/');})->name('home');
