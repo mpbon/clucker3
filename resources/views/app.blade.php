@@ -10,10 +10,17 @@
 
     </head>
     <body>
-        <div id="app">
-            <div class="col-md-8">
 
-                <playlist></playlist>
+        <a class="nav-link active" href="#top"><img class="small-icon roost" src="{{url('/images/main-logo.png')}}" alt="Clucker logo"/>Top</a>
+        <a class="nav-link active" href="#!"><img class="small-icon" src="{{url('/images/coop.png')}}" alt="Chicken coop"/>&nbsp &nbsp Home</a>
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><img class="small-icon" src="{{url('/images/roast.png')}}" alt="Chicken coop"/>&nbsp &nbsp {{ __('Logout') }}</a>
+
+
+
+        <div id="app">
+            <div class="col-md-8 row justify-content-center">
+
+                <commentlist></commentlist>
 
             </div>
         </div>

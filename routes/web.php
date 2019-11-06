@@ -22,3 +22,7 @@ Route::get('/clucks', 'CluckController@index');
 Route::post('/delete', 'CluckController@removeCluck');
 
 Route::post('/like', 'CluckController@likeCluck');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+    });

@@ -49165,7 +49165,7 @@ Vue.component('cluck', {
   },
   template: "\n        <div class=\"list-group-item list-group-item-action\" v-bind:class=\"{'cluck-liked' : cluck.liked}\">\n          <div class=\"d-flex w-100 justify-content-between\">\n            <h5 class=\"mb-1\">{{ cluck.comment }}</h5>\n            <div>\n            <span class=\"badge badge-primary badge-pill\" @click=\"$emit('cluckLiked', cluck)\" v-text=\"likeText(cluck)\">Like</span>\n            </div>\n            <div>\n            <span class=\"badge badge-danger badge-pill\" @click=\"$emit('cluckRemoved', cluck)\">X</span>\n            </div>\n          </div>\n          <p class=\"mb-1\">{{ cluck.artist }}</p>\n          <small><a :href=\"cluck.link_url\">Link to cluck</a></small>\n       </div>\n    "
 });
-Vue.component('playlist', {
+Vue.component('commentlist', {
   template: "\n        <div>\n            <addcluck @cluckAdded=\"addCluck\"></addcluck>\n\n            <div>\n                <cluck v-for=\"(cluck, index) in clucks\"\n                @cluckRemoved=\"removeCluck\"\n                @cluckLiked=\"likeCluck\"\n                :cluck=\"cluck\"\n                :key=\"index\"\n                ></cluck>\n            </div>\n        </div>\n    ",
   data: function data() {
     return {

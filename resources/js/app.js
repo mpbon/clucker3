@@ -57,7 +57,7 @@ Vue.component('cluck',{
     `,
 })
 
-Vue.component('playlist',{
+Vue.component('commentlist',{
     template: `
         <div>
             <addcluck @cluckAdded="addCluck"></addcluck>
