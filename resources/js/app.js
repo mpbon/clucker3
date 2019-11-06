@@ -1,139 +1,32 @@
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
 require('./bootstrap');
 
-Vue.component('addcluck',{
-    template: `
-    <div class="card mt-4">
-        <div class="card-body">
+window.Vue = require('vue');
 
-            <form>
-                <h3>Cluck</h3>
-                  <div class="form-group">
-                    <label for="comment">Comment</label>
-                    <input type="text" class="form-control" name="comment" placeholder="Comment here" v-model="newComment.comment">
-                </div>
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
 
-                 <button type="button" class="btn btn-primary" @click="$emit('cluckAdded', newComment)">Cluck it</button>
-            </form>
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-    </div>
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-</div>
-    `,
-    data(){
-        return {
-            newComment: {
-                comment: "",
-            }
-        }
-    }
-})
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-Vue.component('cluck',{
-    props: ['cluck'],
-
-    methods: {
-        likeText (cluck) {
-            if ( cluck.liked )
-                return 'Unlike';
-            else
-                return 'Like';
-        }
-    },
-
-    template: `
-        <div class="list-group-item list-group-item-action" v-bind:class="{'cluck-liked' : cluck.liked}">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ cluck.comment }}</h5>
-            <div>
-            <span class="badge badge-primary badge-pill" @click="$emit('cluckLiked', cluck)" v-text="likeText(cluck)">Like</span>
-            </div>
-            <div>
-            <span class="badge badge-danger badge-pill" @click="$emit('cluckRemoved', cluck)">X</span>
-            </div>
-          </div>
-          <p class="mb-1">{{ cluck.artist }}</p>
-          <small><a :href="cluck.link_url">Link to cluck</a></small>
-       </div>
-    `,
-})
-
-Vue.component('commentlist',{
-    template: `
-        <div>
-            <addcluck @cluckAdded="addCluck"></addcluck>
-
-            <div>
-                <cluck v-for="(cluck, index) in clucks"
-                @cluckRemoved="removeCluck"
-                @cluckLiked="likeCluck"
-                :cluck="cluck"
-                :key="index"
-                ></cluck>
-            </div>
-        </div>
-    `,
-    data(){
-        return{
-            clucks: [
-                {
-                    comment: "hey",
-                    artist: "there",
-                    link_url: "buddy"
-                },
-                {
-                    comment: "hey",
-                    artist: "there",
-                    link_url: "buddy"
-                }
-            ]
-        }
-    },
-    methods: {
-        likeCluck(cluck){
-            var self = this;
-                axios({
-                    method: "post",
-                    url: "/like",
-                    data: cluck
-                }).then(function(response){
-                    self.fetchClucks();
-                });
-        },
-        removeCluck(cluck){
-            var self = this;
-                axios({
-                    method: "post",
-                    url: "/delete",
-                    data: cluck
-                }).then(function(response){
-                    self.fetchClucks();
-                });
-        },
-        fetchClucks(){
-            var self = this;
-            axios({
-                method: 'get',
-                url: '/clucks'
-            }).then(function(response){
-                self.clucks = response.data;
-            });
-        },
-        addCluck(cluck){
-            axios({
-                method: 'post',
-                url: '/add',
-                data: cluck,
-            });
-            this.fetchClucks();
-        }
-    },
-    created() {
-        this.fetchClucks();
-
-    }
-});
-
-new Vue({
-    el: "#app"
-
+const app = new Vue({
+    el: '#app',
 });

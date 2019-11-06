@@ -1,16 +1,8 @@
-@import "~bootstrap/scss/bootstrap";
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-.song-liked {
-    background: lime;
-    &:hover {
-        background: gold;
-    }
-}
+// Variables
+@import 'variables';
 
-.badge {
-    cursor: pointer;
-}
-
-.tweettemp {
-    background: gold;
-}
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
