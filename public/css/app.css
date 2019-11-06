@@ -10644,3 +10644,19 @@ a.text-dark:focus {
   }
 }
 
+.song-liked {
+  background: lime;
+}
+
+.song-liked:hover {
+  background: gold;
+}
+
+.badge {
+  cursor: pointer;
+}
+
+.tweettemp {
+  background: gold;
+}
+

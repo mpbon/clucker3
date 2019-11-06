@@ -6,3 +6,19 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+.song-liked {
+    background: lime;
+    &:hover {
+        background: gold;
+    }
+}
+
+.badge {
+    cursor: pointer;
+}
+
+.tweettemp {
+    background: gold;
+}
