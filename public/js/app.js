@@ -49146,27 +49146,27 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-Vue.component('addsong', {
-  template: "\n    <div class=\"card mt-4\">\n        <div class=\"card-body\">\n\n            <form>\n                <h3>Cluck</h3>\n                  <div class=\"form-group\">\n                    <label for=\"title\">Title</label>\n                    <input type=\"text\" class=\"form-control\" name=\"title\" placeholder=\"Comment here\" v-model=\"newSong.title\">\n                </div>\n\n                 <button type=\"button\" class=\"btn btn-primary\" @click=\"$emit('songAdded', newSong)\">Cluck it</button>\n            </form>\n\n    </div>\n\n</div>\n    ",
+Vue.component('addcluck', {
+  template: "\n    <div class=\"card mt-4\">\n        <div class=\"card-body\">\n\n            <form>\n                <h3>Cluck</h3>\n                  <div class=\"form-group\">\n                    <label for=\"comment\">Title</label>\n                    <input type=\"text\" class=\"form-control\" name=\"comment\" placeholder=\"Comment here\" v-model=\"newComment.comment\">\n                </div>\n\n                 <button type=\"button\" class=\"btn btn-primary\" @click=\"$emit('cluckAdded', newCluck)\">Cluck it</button>\n            </form>\n\n    </div>\n\n</div>\n    ",
   data: function data() {
     return {
-      newSong: {
-        title: ""
+      newComment: {
+        comment: ""
       }
     };
   }
 });
-Vue.component('song', {
-  props: ['song'],
+Vue.component('cluck', {
+  props: ['cluck'],
   methods: {
-    likeText: function likeText(song) {
-      if (song.liked) return 'Unlike';else return 'Like';
+    likeText: function likeText(cluck) {
+      if (cluck.liked) return 'Unlike';else return 'Like';
     }
   },
-  template: "\n        <div class=\"list-group-item list-group-item-action\" v-bind:class=\"{'song-liked' : song.liked}\">\n          <div class=\"d-flex w-100 justify-content-between\">\n            <h5 class=\"mb-1\">{{ song.title }}</h5>\n            <div>\n            <span class=\"badge badge-primary badge-pill\" @click=\"$emit('songLiked', song)\" v-text=\"likeText(song)\">Like</span>\n            </div>\n            <div>\n            <span class=\"badge badge-danger badge-pill\" @click=\"$emit('songRemoved', song)\">X</span>\n            </div>\n          </div>\n          <p class=\"mb-1\">{{ song.artist }}</p>\n          <small><a :href=\"song.link_url\">Link to Song</a></small>\n       </div>\n    "
+  template: "\n        <div class=\"list-group-item list-group-item-action\" v-bind:class=\"{'cluck-liked' : cluck.liked}\">\n          <div class=\"d-flex w-100 justify-content-between\">\n            <h5 class=\"mb-1\">{{ cluck.title }}</h5>\n            <div>\n            <span class=\"badge badge-primary badge-pill\" @click=\"$emit('cluckLiked', cluck)\" v-text=\"likeText(cluck)\">Like</span>\n            </div>\n            <div>\n            <span class=\"badge badge-danger badge-pill\" @click=\"$emit('cluckRemoved', cluck)\">X</span>\n            </div>\n          </div>\n          <p class=\"mb-1\">{{ cluck.artist }}</p>\n          <small><a :href=\"cluck.link_url\">Link to cluck</a></small>\n       </div>\n    "
 });
 Vue.component('playlist', {
-  template: "\n        <div>\n            <addsong @songAdded=\"addSong\"></addsong>\n\n            <div>\n                <song v-for=\"(song, index) in songs\"\n                @songRemoved=\"removeSong\"\n                @songLiked=\"likeSong\"\n                :song=\"song\"\n                :key=\"index\"\n                ></song>\n            </div>\n        </div>\n    ",
+  template: "\n        <div>\n            <addcluck @cluckAdded=\"addcluck\"></addcluck>\n\n            <div>\n                <cluck v-for=\"(cluck, index) in cluck\"\n                @cluckRemoved=\"removeCluck\"\n                @cluckLiked=\"likeCluck\"\n                :cluck=\"cluck\"\n                :key=\"index\"\n                ></cluck>\n            </div>\n        </div>\n    ",
   data: function data() {
     return {
       songs: [{
@@ -49181,46 +49181,46 @@ Vue.component('playlist', {
     };
   },
   methods: {
-    likeSong: function likeSong(song) {
+    likeCluck: function likeCluck(cluck) {
       var self = this;
       axios({
         method: "post",
         url: "/like",
-        data: song
+        data: cluck
       }).then(function (response) {
-        self.fetchSongs();
+        self.fetchClucks();
       });
     },
-    removeSong: function removeSong(song) {
+    removeCluck: function removeCluck(cluck) {
       var self = this;
       axios({
         method: "post",
         url: "/delete",
-        data: song
+        data: cluck
       }).then(function (response) {
-        self.fetchSongs();
+        self.fetchClucks();
       });
     },
-    fetchSongs: function fetchSongs() {
+    fetchClucks: function fetchClucks() {
       var self = this;
       axios({
         method: 'get',
-        url: '/songs'
+        url: '/clucks'
       }).then(function (response) {
-        self.songs = response.data;
+        self.clucks = response.data;
       });
     },
-    addSong: function addSong(song) {
+    addCluck: function addCluck(cluck) {
       axios({
         method: 'post',
         url: '/add',
-        data: song
+        data: cluck
       });
-      this.fetchSongs();
+      this.fetchCluck();
     }
   },
   created: function created() {
-    this.fetchSongs();
+    this.fetchCluck();
   }
 });
 new Vue({

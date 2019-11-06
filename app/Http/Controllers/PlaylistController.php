@@ -3,30 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Song;
+use App\Cluck;
 
 class PlaylistController extends Controller
 {
     public function index(){
-        $songs = Song::all();
-        return $songs->toJson();
+        $clucks = Cluck::all();
+        return $clucks->toJson();
     }
 
-    public function addSong(Request $request){
-        $song = new Song;
-        $song->title = $request->title;
-        $song->save();
+    public function addCluck(Request $request){
+        $cluck = new Cluck;
+        $cluck->title = $request->title;
+        $cluck->save();
     }
 
-    public function removeSong(Request $request)
+    public function removeCluck(Request $request)
     {
-        Song::destroy($request->id);
+        Cluck::destroy($request->id);
     }
 
-    public function likeSong(Request $request)
+    public function likeCluck(Request $request)
     {
-        $song = Song::find($request->id);
-        $song->liked = !$song->liked;
-        $song->save();
+        $cluck = Cluck::find($request->id);
+        $cluck->liked = !$cluck->liked;
+        $cluck->save();
     }
 }

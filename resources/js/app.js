@@ -1,6 +1,6 @@
 require('./bootstrap');
 
-Vue.component('addsong',{
+Vue.component('addcluck',{
     template: `
     <div class="card mt-4">
         <div class="card-body">
@@ -8,11 +8,11 @@ Vue.component('addsong',{
             <form>
                 <h3>Cluck</h3>
                   <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Comment here" v-model="newSong.title">
+                    <label for="comment">Title</label>
+                    <input type="text" class="form-control" name="comment" placeholder="Comment here" v-model="newComment.comment">
                 </div>
 
-                 <button type="button" class="btn btn-primary" @click="$emit('songAdded', newSong)">Cluck it</button>
+                 <button type="button" class="btn btn-primary" @click="$emit('cluckAdded', newCluck)">Cluck it</button>
             </form>
 
     </div>
@@ -21,19 +21,19 @@ Vue.component('addsong',{
     `,
     data(){
         return {
-            newSong: {
-                title: "",
+            newComment: {
+                comment: "",
             }
         }
     }
 })
 
-Vue.component('song',{
-    props: ['song'],
+Vue.component('cluck',{
+    props: ['cluck'],
 
     methods: {
-        likeText (song) {
-            if ( song.liked )
+        likeText (cluck) {
+            if ( cluck.liked )
                 return 'Unlike';
             else
                 return 'Like';
@@ -41,18 +41,18 @@ Vue.component('song',{
     },
 
     template: `
-        <div class="list-group-item list-group-item-action" v-bind:class="{'song-liked' : song.liked}">
+        <div class="list-group-item list-group-item-action" v-bind:class="{'cluck-liked' : cluck.liked}">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ song.title }}</h5>
+            <h5 class="mb-1">{{ cluck.title }}</h5>
             <div>
-            <span class="badge badge-primary badge-pill" @click="$emit('songLiked', song)" v-text="likeText(song)">Like</span>
+            <span class="badge badge-primary badge-pill" @click="$emit('cluckLiked', cluck)" v-text="likeText(cluck)">Like</span>
             </div>
             <div>
-            <span class="badge badge-danger badge-pill" @click="$emit('songRemoved', song)">X</span>
+            <span class="badge badge-danger badge-pill" @click="$emit('cluckRemoved', cluck)">X</span>
             </div>
           </div>
-          <p class="mb-1">{{ song.artist }}</p>
-          <small><a :href="song.link_url">Link to Song</a></small>
+          <p class="mb-1">{{ cluck.artist }}</p>
+          <small><a :href="cluck.link_url">Link to cluck</a></small>
        </div>
     `,
 })
@@ -60,15 +60,15 @@ Vue.component('song',{
 Vue.component('playlist',{
     template: `
         <div>
-            <addsong @songAdded="addSong"></addsong>
+            <addcluck @cluckAdded="addcluck"></addcluck>
 
             <div>
-                <song v-for="(song, index) in songs"
-                @songRemoved="removeSong"
-                @songLiked="likeSong"
-                :song="song"
+                <cluck v-for="(cluck, index) in cluck"
+                @cluckRemoved="removeCluck"
+                @cluckLiked="likeCluck"
+                :cluck="cluck"
                 :key="index"
-                ></song>
+                ></cluck>
             </div>
         </div>
     `,
@@ -89,46 +89,46 @@ Vue.component('playlist',{
         }
     },
     methods: {
-        likeSong(song){
+        likeCluck(cluck){
             var self = this;
                 axios({
                     method: "post",
                     url: "/like",
-                    data: song
+                    data: cluck
                 }).then(function(response){
-                    self.fetchSongs();
+                    self.fetchClucks();
                 });
         },
-        removeSong(song){
+        removeCluck(cluck){
             var self = this;
                 axios({
                     method: "post",
                     url: "/delete",
-                    data: song
+                    data: cluck
                 }).then(function(response){
-                    self.fetchSongs();
+                    self.fetchClucks();
                 });
         },
-        fetchSongs(){
+        fetchClucks(){
             var self = this;
             axios({
                 method: 'get',
-                url: '/songs'
+                url: '/clucks'
             }).then(function(response){
-                self.songs = response.data;
+                self.clucks = response.data;
             });
         },
-        addSong(song){
+        addCluck(cluck){
             axios({
                 method: 'post',
                 url: '/add',
-                data: song,
+                data: cluck,
             });
-            this.fetchSongs();
+            this.fetchCluck();
         }
     },
     created() {
-        this.fetchSongs();
+        this.fetchCluck();
 
     }
 });
