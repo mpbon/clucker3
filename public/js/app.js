@@ -49147,6 +49147,9 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+__webpack_require__(/*! ./giph */ "./resources/js/giph.js");
+
 Vue.component('addcluck', {
   template: "\n    <div class=\"card mt-4\">\n        <div class=\"card-body\">\n\n            <form>\n                <h3>Cluck</h3>\n                  <div class=\"form-group\">\n                    <label for=\"comment\">Comment</label>\n                    <input type=\"text\" class=\"form-control\" name=\"comment\" placeholder=\"Comment here\" v-model=\"newComment.comment\">\n                </div>\n\n                 <button type=\"button\" class=\"btn btn-primary\" @click=\"$emit('cluckAdded', newComment)\">Cluck it</button>\n            </form>\n\n    </div>\n\n</div>\n    ",
   data: function data() {
@@ -49171,13 +49174,7 @@ Vue.component('commentlist', {
   data: function data() {
     return {
       clucks: [{
-        comment: "hey",
-        artist: "there",
-        link_url: "buddy"
-      }, {
-        comment: "hey",
-        artist: "there",
-        link_url: "buddy"
+        comment: "hey"
       }]
     };
   },
@@ -49272,6 +49269,50 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/giph.js":
+/*!******************************!*\
+  !*** ./resources/js/giph.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Giphy API key
+var myGiphyAPIKey = 'yb7EkGKFtd6q7molvP5YMr34LiqK58D5';
+Vue.component('giphy-results', {
+  data: function data() {
+    return {
+      apptitle: 'Vue.JS GIPHY API In-Class Example',
+      searchterm: '',
+      giphyResults: {},
+      isList: false
+    };
+  },
+  methods: {
+    giphySearch: function giphySearch(term) {
+      var _this = this;
+
+      axios.get('https://api.giphy.com/v1/gifs/search?api_key=' + myGiphyAPIKey + '&q=' + this.searchterm).then(function (response) {
+        _this.giphyResults = response.data.data;
+      });
+    },
+    toggleListView: function toggleListView() {
+      this.isList = !this.isList;
+    },
+    giphyImage: function giphyImage(images) {
+      if (this.isList === true) {
+        return images.original.url;
+      } else {
+        {
+          return images.fixed_width.url;
+        }
+      }
+    }
+  },
+  template: "\n                    <div id=\"giphy-results\">\n                        <h1 v-text=\"apptitle\" class=\"title is-1\"></h1>\n                        <form @submit.prevent=\"giphySearch\">\n                            <input v-model=\"searchterm\" type=\"search\" class=\"input\" placeholder=\"Enter a Search Term.\">\n                            <input type=\"submit\" value=\"Submit Search\" class=\"input\">\n                            <button @click=\"toggleListView\" class=\"input has-text-centered\">Toggle Grid/List View</button>\n                        </form>\n                        <p>Current Search Term: {{ searchterm }}</p>\n                        <ul class=\"columns\">\n                            <li v-for=\"gif in giphyResults\" class=\"column\" v-bind:class=\"{ 'is-full' : isList, 'is-one-quarter' : !isList }\">\n                                <a v-bind:href=\"gif.url\" target=\"_blank\">\n                                    <img v-bind:src=\"giphyImage(gif.images)\"\n                                    v-bind:alt=\"gif.slug\">\n                                </a>\n                            </li>\n                        </ul>\n                    </div>\n                "
+});
 
 /***/ }),
 

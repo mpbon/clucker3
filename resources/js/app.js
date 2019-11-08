@@ -1,5 +1,6 @@
 require('./bootstrap');
 window.Vue = require('vue');
+require('./giph');
 
 Vue.component('addcluck',{
     template: `
@@ -77,15 +78,9 @@ Vue.component('commentlist',{
         return{
             clucks: [
                 {
-                    comment: "hey",
-                    artist: "there",
-                    link_url: "buddy"
+                    comment: "hey",    
                 },
-                {
-                    comment: "hey",
-                    artist: "there",
-                    link_url: "buddy"
-                }
+
             ]
         }
     },

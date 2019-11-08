@@ -22,6 +22,11 @@
 
                 <commentlist></commentlist>
 
+
+
+                <giphy-results></giphy-results>
+
+
             </div>
         </div>
 
