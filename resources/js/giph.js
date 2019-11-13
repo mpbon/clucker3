@@ -5,7 +5,7 @@
             Vue.component( 'giphy-results', {
                 data: function () {
                     return {
-                        apptitle: 'Vue.JS GIPHY API In-Class Example',
+                        apptitle: 'Comment with a GIF!',
                         searchterm: '',
                         giphyResults: {},
                         isList: false

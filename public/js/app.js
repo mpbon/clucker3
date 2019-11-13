@@ -49284,7 +49284,7 @@ var myGiphyAPIKey = 'yb7EkGKFtd6q7molvP5YMr34LiqK58D5';
 Vue.component('giphy-results', {
   data: function data() {
     return {
-      apptitle: 'Vue.JS GIPHY API In-Class Example',
+      apptitle: 'Comment with a GIF!',
       searchterm: '',
       giphyResults: {},
       isList: false

@@ -11,13 +11,6 @@
         <!-- Fonts -->
         <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> -->
 
-        <!-- Styles -->
-        <style>
-            
-
-
-        </style>
-
     </head>
 
 
@@ -31,14 +24,14 @@
                         <div role="banner" class="welcome_text">
                             You’re one step away from the shiny new Clucker.com
                         </div>
-                        <div role="article" class="welcome_sub">
+                        <article class="welcome_sub">
                             We’ve added tons of cool features, including …
                             CRUD
                             and Gifs!
                             What are you waiting for?
                             <p>Strut those feathers.</p>
                             Become the cock of the walk.
-                        </div>
+                        </article>
                         <img class="welcome_background" src="{{url('/images/background.jpg')}}" alt="Clucker logo background"/>
                     </div>
                 </div>

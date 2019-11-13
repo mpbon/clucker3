@@ -21,9 +21,6 @@
             <div class="col-md-8 row justify-content-center">
 
                 <commentlist></commentlist>
-
-
-
                 <giphy-results></giphy-results>
 
 
